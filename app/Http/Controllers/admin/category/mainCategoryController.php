@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Redirect;
 
 class mainCategoryController extends Controller
 {
-         public function admin_login_auth_check() {
+    protected function admin_login_auth_check() {
 
       session_start();
         $admin_id = session::get('admin_id');
@@ -23,6 +23,18 @@ class mainCategoryController extends Controller
             redirect::to('/wp/admin/master/login/form/showing')->send();
         }
     }
+    
+    
+        protected function generateRandomString($length = 20) {
+            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $charactersLength = strlen($characters);
+            $randomString = '';
+            for ($i = 0; $i < $length; $i++) {
+                $randomString .= $characters[rand(0, $charactersLength - 1)];
+            }
+            return $randomString;
+        }
+
     
     
     
@@ -43,11 +55,18 @@ class mainCategoryController extends Controller
             'category_description' => 'required',
             'category_publicationStatus' => 'required'
            ]);
+        
+        
+        $randomString =  $this->generateRandomString();
+        
+//        echo $randomString;
+//        exit();
 
         $data=array();
-        $data['category_name'] = $request->category_name;
-        $data['category_description'] = $request->category_description;
-        $data['category_publicationStatus'] = $request->category_publicationStatus;
+         $data['category_url'] = $randomString;
+         $data['category_name'] = $request->category_name;
+         $data['category_description'] = $request->category_description;
+         $data['category_publicationStatus'] = $request->category_publicationStatus;
    
        // echo $data['publication_status'];
         
@@ -107,47 +126,46 @@ class mainCategoryController extends Controller
     
       public function editMainCategory($id)
     {
-
-        $infos_by_id=DB::table('courses')
-                             ->where('course_id',$id)
+         
+        $category_by_id=DB::table('tbl_categories')
+                             ->where('category_id',$id)
                               ->first();
         
+        $category= view('admin.category.main-category.editCategory')
+                ->with('category_by_id',$category_by_id);
         
-//        echo '<pre>';
-//       print_r($infos_by_id);
-//       exit();
-
-        
-        $edit_infos= view('admin.course.editInfos')->with('infos_by_id',$infos_by_id);
-        
-        return view('admin.master')->with('mainContain',$edit_infos);
+        return view('admin.master')->with('mainContain',$category);
     }
     
     
-     public function updateMainCategory(Request $request)
+    
+    
+    
+    
+    
+    
+    
+    
+     public function update(Request $request)
     {
-      //   return $request->all();
+      //  return $request->all();
+         $category__id= $request->category_id;
 
-         $id_infos = $request->course_Id;
-
-        $this->validate($request, [
+          $this->validate($request, [
             'category_name' => 'required',
             'category_description' => 'required',
-            'category_publicationStatus' => 'required'
-        ]);
+            'publicationStatus' => 'required'
+           ]);
 
-
- 
-          $data=array();
+        $data=array();
         $data['category_name'] = $request->category_name;
         $data['category_description'] = $request->category_description;
-        $data['category_publicationStatus'] = $request->category_publicationStatus;
+        $data['category_publicationStatus'] = $request->publicationStatus;
    
-
-        $data['updated_at']=date("y-m-d");
+        
          
-         DB::table('courses')
-                 ->where('course_id',$id_infos)
+         DB::table('tbl_categories')
+                 ->where('category_id',$category__id)
                  ->update($data);
          
          
@@ -157,9 +175,13 @@ class mainCategoryController extends Controller
     }
     
     
+    
+    
+    
+    
       public function deleteMainCategory($id) {
        
-        DB::table('tbl_infos')->where('infos_id',$id)->delete();
+        DB::table('tbl_categories')->where('category_id',$id)->delete();
          
          session::put('main_category_message',' Information delete Successfully');
          return redirect::to('/wp-admin/master/category/main/manage');

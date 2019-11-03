@@ -62,6 +62,7 @@ class cartController extends Controller {
 
     public function showCart() {
 
+       
         $createCart = view('frontEnd.cart.cart');
         return view('frontEnd.master')->with('mainContent', $createCart);
     }

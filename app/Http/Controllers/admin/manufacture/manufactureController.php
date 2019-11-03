@@ -150,10 +150,7 @@ class manufactureController extends Controller
         $data['manufacture_description'] = $request->manufacture_description;
         $data['manufacture_publicationStatus'] = $request->manufacture_publicationStatus;
    
-       // echo $data['publication_status'];
-        
-        
-      //  $data['updated_at']=date("y-m-d");
+  
          
          DB::table('tbl_manufactures')
                  ->where('manufacture_id',$manufacture_id)

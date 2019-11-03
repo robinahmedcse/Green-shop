@@ -134,64 +134,58 @@ class subCategoryController extends Controller
           
     }
     
-      public function editMainCategory($id)
+    
+    
+    
+    
+    
+    
+      public function editSubCategory($id)
     {
 
-        $infos_by_id=DB::table('tbl_sub_categories')
-                             ->where('course_id',$id)
+          $sub_categories=DB::table('tbl_sub_categories')
+                             ->where('sub_category_id',$id)
                               ->first();
         
+        $category= view('admin.category.sub-category.editSubCategory')
+                ->with('sub_categories',$sub_categories);
         
-//        echo '<pre>';
-//       print_r($infos_by_id);
-//       exit();
-
+        return view('admin.master')->with('mainContain',$category);
         
-        $edit_infos= view('admin.course.editInfos')->with('infos_by_id',$infos_by_id);
-        
-        return view('admin.master')->with('mainContain',$edit_infos);
     }
     
     
-     public function updateMainCategory(Request $request)
+     public function updateSubCategory(Request $request)
     {
-      //   return $request->all();
+      //return $request->all();
+  
+         $category_sub_id= $request->sub_category_id;
 
-         $id_infos = $request->course_Id;
-
-        $this->validate($request, [
-            'category_name' => 'required',
-            'category_description' => 'required',
-            'category_publicationStatus' => 'required'
-        ]);
-
-
- 
-          $data=array();
-        $data['category_name'] = $request->category_name;
-        $data['category_description'] = $request->category_description;
-        $data['category_publicationStatus'] = $request->category_publicationStatus;
-   
-
-        $data['updated_at']=date("y-m-d");
-         
+        $data=array();
+        $data['sub_category_name'] = $request->sub_category_name;
+        $data['sub_category_description'] = $request->sub_category_description;
+        $data['sub_category_publicationStatus'] = $request->publicationStatus;
+     
          DB::table('tbl_sub_categories')
-                 ->where('course_id',$id_infos)
+                 ->where('sub_category_id',$category_sub_id)
                  ->update($data);
          
-         
          session::put('sub_category_message','All info update Successfully');
-           return redirect::to('/wp-admin/master/category/sub/mangge');
+           return redirect::to('/wp-admin/master/category/sub/manage');
           
     }
     
     
-      public function deleteMainCategory($id) {
+    
+    
+    
+    
+      public function deleteSubCategory($id) {
        
-        DB::table('tbl_sub_categories')->where('infos_id',$id)->delete();
+        DB::table('tbl_sub_categories')->where('sub_category_id',$id)->delete();
          
          session::put('sub_category_message',' Information delete Successfully');
-         return redirect::to('/wp-admin/master/category/sub/mangge');
+         return redirect::to('/wp-admin/master/category/sub/manage');
           
     }
     

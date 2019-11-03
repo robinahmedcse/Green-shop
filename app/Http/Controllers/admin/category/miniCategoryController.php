@@ -26,6 +26,17 @@ class miniCategoryController extends Controller
         }
     }
     
+     protected function generateRandomString($length = 25) {
+            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $charactersLength = strlen($characters);
+            $randomString = '';
+            for ($i = 0; $i < $length; $i++) {
+                $randomString .= $characters[rand(0, $charactersLength - 1)];
+            }
+            return $randomString;
+        }
+
+    
     
     
     public function index() {
@@ -46,7 +57,7 @@ class miniCategoryController extends Controller
     }
 
     public function saveMiniCategory(Request $request) {
-    //return $request->all();
+   //  return $request->all();
         
         $this->validate($request, [
             
@@ -55,8 +66,11 @@ class miniCategoryController extends Controller
             'mini_category_description' => 'required',
             'mini_category_publicationStatus' => 'required'
            ]);
+        
+          $randomString =  $this->generateRandomString();
 
         $data=array();
+           $data['mini_category_url'] = $randomString;
         $data['sub_category_id'] = $request->sub_category_id;
         $data['mini_category_name'] = $request->mini_category_name;
         $data['mini_category_description'] = $request->mini_category_description;
@@ -100,7 +114,7 @@ class miniCategoryController extends Controller
     }//showMainCategory
     
     
-      public function unpublishedSubCategory($id){    
+      public function unpublishedSMiniCategory($id){    
          //return $id;
         $data=array();
         $data['mini_category_publicationStatus']=0;
@@ -113,7 +127,7 @@ class miniCategoryController extends Controller
          
     }
     
-      public function publishedSubCategory($id){
+      public function publishedMiniCategory($id){
           // return $id;
        $data['mini_category_publicationStatus']=1;
         DB::table('tbl_mini_categories')
@@ -127,64 +141,51 @@ class miniCategoryController extends Controller
           
     }
     
-      public function editMainCategory($id)
+      public function editMiniCategory($id)
     {
 
-        $infos_by_id=DB::table('tbl_sub_categories')
-                             ->where('course_id',$id)
+        $mini_categories=DB::table('tbl_mini_categories')
+                             ->where('mini_category_id',$id)
                               ->first();
         
         
-//        echo '<pre>';
-//       print_r($infos_by_id);
-//       exit();
-
+        $category= view('admin.category.mini-category.editMiniCategory')
+                ->with('mini_categories',$mini_categories);
         
-        $edit_infos= view('admin.course.editInfos')->with('infos_by_id',$infos_by_id);
-        
-        return view('admin.master')->with('mainContain',$edit_infos);
+        return view('admin.master')->with('mainContain',$category);
     }
     
     
-     public function updateMainCategory(Request $request)
+     public function updateMiniCategory(Request $request)
     {
-      //   return $request->all();
+       
 
-         $id_infos = $request->course_Id;
+         $id = $request->mini_category_id;
 
-        $this->validate($request, [
-            'category_name' => 'required',
-            'category_description' => 'required',
-            'category_publicationStatus' => 'required'
-        ]);
-
-
- 
-          $data=array();
-        $data['category_name'] = $request->category_name;
-        $data['category_description'] = $request->category_description;
-        $data['category_publicationStatus'] = $request->category_publicationStatus;
+       $data=array();
+      
+        $data['mini_category_name'] = $request->mini_category_name;
+        $data['mini_category_description'] = $request->mini_category_description;
+        $data['mini_category_publicationStatus'] = $request->publicationStatus;
    
-
-        $data['updated_at']=date("y-m-d");
-         
-         DB::table('tbl_sub_categories')
-                 ->where('course_id',$id_infos)
-                 ->update($data);
+   
+         $mini_categories=DB::table('tbl_mini_categories')
+                             ->where('mini_category_id',$id)
+                              ->update($data);
          
          
          session::put('mini_category_message','All info update Successfully');
-           return redirect::to('/wp-admin/master/category/sub/mangge');
+           return redirect::to('/wp-admin/master/category/mini/manage');
           
     }
     
     
-      public function deleteMainCategory($id) {
+      public function deleteMiniCategory($id) {
        
-        DB::table('tbl_sub_categories')->where('infos_id',$id)->delete();
+        DB::table('tbl_mini_categories')->where('mini_category_id',$id)->delete();
          
          session::put('mini_category_message',' Information delete Successfully');
-         return redirect::to('/wp-admin/master/category/sub/mangge');
+         return redirect::to('/wp-admin/master/category/mini/manage');
           
     }
     

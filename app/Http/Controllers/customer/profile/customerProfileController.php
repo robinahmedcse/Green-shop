@@ -48,30 +48,60 @@ class customerProfileController extends Controller
          return view('frontEnd.customer.userMaster')->with('mainContent', $createCustomerProfile);
     }//profileView
     
+   
     
-    public function shippinsAddressView() {
+    
+    
+    
+    
+    
+    public function profileEdit($customer_id) {
 
               $this->customer_login_auth_check();
         
-        $customer_id = Session::get('user_customer_id');
-        
 
-          
-                 $orders = DB::table('tbl_orders')
-                ->join('tbl_customers', 'tbl_customers.customer_id', '=', 'tbl_orders.customer_id')
-                ->join('tbl_payments', 'tbl_payments.order_id', '=', 'tbl_orders.order_id')
-                
-                ->select('tbl_customers.customer_name', 'tbl_orders.*')
-                ->where('tbl_orders.customer_id', $customer_id)
-                ->get();
+                 $myProfile = DB::table('tbl_customers')
+                ->where('tbl_customers.customer_id', $customer_id)
+                ->first();
 
-             echo '<pre>';
-             print_r($orders);    
-            exit();
+//             echo '<pre>';
+//             print_r($myProfile);    
+//            exit();
             
+             $editCustomerProfile = view('frontEnd.customer.profile.editMyProfile')
+                  ->with('myProfile',$myProfile);
+         return view('frontEnd.customer.userMaster')->with('mainContent', $editCustomerProfile);
                   
  
         
+    }
+
+
+
+    public function profileUpdate(Request $request) {
+
+        //  return $request->all();
+        
+             $profile_id = $request->customer_id;
+      
+        
+              $data=array();
+              $data['customer_name'] = $request->name ; 
+              $data['phone'] = $request->phone ;
+              $data['address'] = $request->address;
+              $data['city'] = $request->city ;
+              $data['thana'] = $request->thana;
+              $data['post_office'] = $request->po ;
+              $data['district'] = $request->district;
+              $data['country'] = $request->country ;
+ 
+         
+         DB::table('tbl_customers')
+                 ->where('customer_id',$profile_id)
+                 ->update($data);
+        
+     
+        return redirect('customer/profile/view'); 
     }
     
     
