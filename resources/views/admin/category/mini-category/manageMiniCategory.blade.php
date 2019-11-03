@@ -28,6 +28,7 @@ Manage Sub Category | Admin Panel
                 <th class="column-title"># </th>
                 <th class="column-title">Sub Category Name </th>
                 <th class="column-title">Mini Category Name </th>
+                <th class="column-title">Mini Category Code </th>
                 <th class="column-title">Category Description </th>
                 <th class="column-title">Publication Status </th>
                 <th class="column-title">Action</th>
@@ -37,6 +38,7 @@ Manage Sub Category | Admin Panel
                 <td class="center ">{{$category ->mini_category_id}}</td>
                    <td class="center ">{{$category ->sub_category_name}}</td>
                 <td class="center ">{{$category ->mini_category_name}}</td>
+                 <td class="center ">{{$category ->mini_category_url}}</td>
                 <td class="center ">{{$category ->mini_category_description}}</td>
                 <td class="center ">{{$category ->mini_category_publicationStatus == 1?'Published':'UnPublished'}}</td>
                 <td>
@@ -52,11 +54,11 @@ Manage Sub Category | Admin Panel
 <?php } ?>
 
 
-                    <a href="{{URL::to('admin/edit-sub-category/'.$category ->mini_category_id)}}" class="btn btn-success">
+                    <a href="{{URL::to('/wp-admin/master/category/mini/edit/'.$category ->mini_category_id)}}" class="btn btn-success">
                         <span class="glyphicon glyphicon-edit"></span>
                     </a> 
 
-                    <a href="{{URL::to('admin/delete-sub-category/'.$category ->mini_category_id)}}" class="btn btn-danger" onclick="return one_delete();">
+                    <a href="{{URL::to('/wp-admin/master/category/mini/delete/'.$category ->mini_category_id)}}" class="btn btn-danger" onclick="return one_delete();">
                         <span class="glyphicon glyphicon-trash"></span>
                     </a>
 

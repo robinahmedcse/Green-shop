@@ -12,14 +12,14 @@ Edit Sub Category | Admin Panel
         <h2 class="tex text-center text-success">Edit Sub Category</h2>
     </div> 
     <div class="">
-        <h4 class="tex text-center text-danger">{{Session::get('message')}}</h4>
+        <h4 class="tex text-center text-danger">{{Session::get('sub_cate_message')}}</h4>
     </div> 
     
 <div class="col-lg-12"style="margin-top: 4%">
     <div class="well" >
        
 <!--        <form action="" method="POST"id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">-->
-             {!! Form::open(['url'=>'admin/update-sub-category','method'=>'POST','name'=>'editForm','class'=>'form-horizontal form-label-left']) !!}
+             {!! Form::open(['url'=>'/wp-admin/master/category/sub/update','method'=>'POST','name'=>'editForm','class'=>'form-horizontal form-label-left']) !!}
             <!-- Category name -->
             
          
@@ -38,7 +38,7 @@ Edit Sub Category | Admin Panel
                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="category-description">Sub Category Description <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <textarea class='form-control'   name='sub_category_description' row='8 '>{{$sub_categories->Sub_category_description}}</textarea>
+                    <textarea class='form-control'   name='sub_category_description' row='8 '>{{$sub_categories->sub_category_description}}</textarea>
                        <span class="text-danger">{{$errors->has('sub_category_description')? $errors->first('sub_category_description'):''}}</span>
                 </div>
             </div> 
@@ -56,7 +56,7 @@ Edit Sub Category | Admin Panel
             
             <div class="form-group">
                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3"> 
-                    <input type="submit" name='btn' value="Save Sub Category" class="btn btn-success">
+                    <input type="submit" name='btn' value="Update Sub Category" class="btn btn-success">
                 </div>
             </div>
          {!! Form::close() !!}
@@ -65,7 +65,7 @@ Edit Sub Category | Admin Panel
 </div>    
      <script>
 
-document.forms['editForm'].elements['publicationStatus'].value={{$sub_categories->publicationStatus}};
+document.forms['editForm'].elements['publicationStatus'].value={{$sub_categories->sub_category_publicationStatus}};
 
 </script>
 

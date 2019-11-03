@@ -52,11 +52,11 @@ Manage Sub Category | Admin Panel
 <?php } ?>
 
 
-                    <a href="{{URL::to('admin/edit-sub-category/'.$category ->sub_category_id)}}" class="btn btn-success">
+                    <a href="{{URL::to('wp-admin/master/category/sub/edit/'.$category ->sub_category_id)}}" class="btn btn-success">
                         <span class="glyphicon glyphicon-edit"></span>
                     </a> 
 
-                    <a href="{{URL::to('admin/delete-sub-category/'.$category ->sub_category_id)}}" class="btn btn-danger" onclick="return one_delete();">
+                    <a href="{{URL::to('/wp-admin/master/category/sub/delete/'.$category ->sub_category_id)}}" class="btn btn-danger" onclick="return one_delete();">
                         <span class="glyphicon glyphicon-trash"></span>
                     </a>
 

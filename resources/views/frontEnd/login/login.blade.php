@@ -64,7 +64,7 @@ $cartCollection = Cart::getContent();
                                                        <input  type="password"  name="password"  placeholder="Password"  required="">
                                                     </div>
                                                     <p class="require">* Required fields</p>
-                                                    <a href="#">Forgot Passwords?</a>
+                                                    <a href="{{URL::to('customer/forget/password/')}}">Forgot Passwords?</a>
                                                     <div class="dark-btn"> 
                                                      <input type="submit" value="Submit" class="btn btn-default glyphicon glyphicon-chevron-left">
                                                     </div>

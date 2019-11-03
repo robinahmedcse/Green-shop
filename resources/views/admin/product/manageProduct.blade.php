@@ -8,8 +8,11 @@
     <div class="">
         <h4 class="tex text-center text-danger">{{Session::get('product_message')}}</h4>
     </div> 
-    
-  
+ 
+        
+    <div class="">
+        <h4 class="tex text-center text-danger"> Total {{ $all_product_info->count()}} Product Present</h4>
+    </div> 
 
     <div class="table-responsive">
         <table class="table table-bordered table-hover table-condensed">
@@ -52,11 +55,11 @@
                              <span class="glyphicon glyphicon-zoom-in"></span>
                          </a> 
                          
-                         <a href="{{url('/wp-admin/master/product/x/'.$product ->product_id)}}" class="btn btn-success">
+                         <a href="{{url('/wp-admin/master/product/edit/'.$product ->product_id)}}" class="btn btn-success">
                              <span class="glyphicon glyphicon-edit"></span>
                          </a> 
 
-                         <a href="{{url('/wp-admin/master/product/y/'.$product ->product_id)}}" class="btn btn-danger">
+                         <a href="{{url('/wp-admin/master/product/delete/'.$product ->product_id)}}" class="btn btn-danger" onclick="return one_delete();">
                              <span class="glyphicon glyphicon-trash"></span>
                          </a>
 
@@ -65,6 +68,9 @@
                  </tr>
                                         @endforeach
         </table>
+        
+        {{ $all_product_info->links() }}
+  
     </div>
     
  

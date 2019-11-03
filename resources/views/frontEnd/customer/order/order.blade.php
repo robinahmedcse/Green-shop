@@ -44,14 +44,11 @@ New-shop | Customer Panel
                      <td class="center ">{{$order ->order_status}}</td>
                      
                       <td>
-                         <a href="{{url('customer/total/order/view'.$order ->order_id)}}" class="btn btn-success">
+                         <a href="{{url('customer/total/order/view/'.$order ->order_id)}}" class="btn btn-success">
                              <span class="glyphicon glyphicon-zoom-in"></span>
                          </a> 
                          
-<!--                         <a href="{{url('/wp-admin/master/delete-order/'.$order ->order_id)}}" class="btn btn-danger" onclick="return one_delete();">
-                             <span class="glyphicon glyphicon-trash"></span>
-                         </a>-->
-                         
+ 
                          
                      </td> 
                  </tr>

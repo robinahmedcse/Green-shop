@@ -2,37 +2,74 @@
 @extends('frontEnd.master')
 @section('mainContent')
 
-
-
-
-
 <?php
-$cartCollection = Cart::getContent();
-// echo"<pre>";
-// print_r($cartCollection);
+        $cartCollection = Cart::getContent();
+
+          $banner_peoduct=DB::table('tbl_checkout_pro')
+                        ->where('publication_status', 1)
+                        ->first();
+          
+//          
+//           echo"<pre>";
+// print_r($banner_peoduct);
 // exit();
+          
+          if ($banner_peoduct == NULL) {
+            $ban_image = 'Nai';
+        } else {
+            $ban_image =$banner_peoduct->checkout_pro_image_url;
+        }
+        
 ?>
+
+  
+
 
 
  
 
-<div class="ht__bradcaump__area" style="background: rgba(0, 0, 0, 0) url({{asset('public/frontEnd/')}}/images/bg/4.jpg) no-repeat scroll center center / cover ;">
-    <div class="ht__bradcaump__wrap">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="bradcaump__inner">
-                        <nav class="bradcaump-inner">
-                            <a class="breadcrumb-item" href="index.html">Home</a>
-                            <span class="brd-separetor"><i class="zmdi zmdi-chevron-right"></i></span>
-                            <span class="breadcrumb-item active">checkout</span>
-                        </nav>
+<?php if ($ban_image == 'Nai') {  ?>
+  <div class="ht__bradcaump__area" style="background: rgba(0, 0, 0, 0)  no-repeat scroll center center / cover ;">
+        <div class="ht__bradcaump__wrap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="bradcaump__inner">
+                            <nav class="bradcaump-inner">
+                                <a class="breadcrumb-item" href="{{URL::to('/')}}">Home</a>
+                                <span class="brd-separetor"><i class="zmdi zmdi-chevron-right"></i></span>
+                                <span class="breadcrumb-item active">CheckOut</span>
+                            </nav>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+<?php } else { ?>
+    <div class="ht__bradcaump__area" style="background: rgba(0, 0, 0, 0) url({{asset($ban_image)}}) no-repeat scroll center center / cover ;">
+        <div class="ht__bradcaump__wrap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="bradcaump__inner">
+                            <nav class="bradcaump-inner">
+                                <a class="breadcrumb-item" href="{{URL::to('/')}}">Home</a>
+                                <span class="brd-separetor"><i class="zmdi zmdi-chevron-right"></i></span>
+                                <span class="breadcrumb-item active">CheckOut</span>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php } ?>
+
+
+
+
+
 <!-- End Bradcaump area -->
 <!-- cart-main-area start -->
 <div class="checkout-wrap ptb--100">

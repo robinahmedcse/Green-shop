@@ -2,7 +2,7 @@
 @extends('frontEnd.customer.userMaster')
 
 @section('title')
-New-shop | Customer Panel
+Green shop |My profile |Customer Panel
 @endsection
 
 
@@ -51,7 +51,7 @@ New-shop | Customer Panel
                                     <td class="center ">{{$customer->post_office}}</td>
                                      <td class="center ">{{$customer->district}}</td>
                      <td>
-                         <a href="{{url('admin/edit-category/'.$customer ->customer_id)}}" class="btn btn-success">
+                         <a href="{{url('customer/profile/edit/'.$customer ->customer_id)}}" class="btn btn-success">
                              <span class="glyphicon glyphicon-edit"></span>
                          </a> 
                          

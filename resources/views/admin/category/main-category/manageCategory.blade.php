@@ -28,6 +28,7 @@ Manage Category | Admin Panel
            
                 <tr class="headings">
                     <th class="column-title"># </th>
+                    <th class="column-title">Category Code </th>
                     <th class="column-title">Category Name </th>
                      <th class="column-title">Category Description </th>
                     <th class="column-title">Publication Status </th>
@@ -36,6 +37,7 @@ Manage Category | Admin Panel
              @foreach($all_main_categories as $category)
                 <tr class="even pointer">
                      <td class="center ">{{$category ->category_id}}</td>
+                     <td class="center ">{{$category ->category_url}}</td>
                     <td class="center ">{{$category ->category_name}}</td>
                      <td class="center ">{{$category ->category_description}}</td>
                      <td class="center ">{{$category ->category_publicationStatus == 1?'Published':'UnPublished'}}</td>
@@ -52,11 +54,11 @@ Manage Category | Admin Panel
                                             </a>
                                         <?php } ?>
                          
-                         <a href="{{URL::to('admin/edit-category/'.$category ->category_id)}}" class="btn btn-success">
+                         <a href="{{URL::to('/wp-admin/master/category/main/edit/'.$category ->category_id)}}" class="btn btn-success">
                              <span class="glyphicon glyphicon-edit"></span>
                          </a> 
                          
-                         <a href="{{URL::to('admin/delete-category/'.$category ->category_id)}}" class="btn btn-danger" onclick="return one_delete();">
+                         <a href="{{URL::to('/wp-admin/master/category/main/delete/'.$category ->category_id)}}" class="btn btn-danger" onclick="return one_delete();">
                              <span class="glyphicon glyphicon-trash"></span>
                          </a>
                          

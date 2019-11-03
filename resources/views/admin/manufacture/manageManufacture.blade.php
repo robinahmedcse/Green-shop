@@ -47,7 +47,7 @@
                              <span class="glyphicon glyphicon-edit"></span>
                          </a> 
                          
-                         <a href="{{url('wp-admin/master/manufacture/delete/'.$manufacture ->manufacture_id)}}" class="btn btn-danger">
+                         <a href="{{url('wp-admin/master/manufacture/delete/'.$manufacture ->manufacture_id)}}" class="btn btn-danger"  onclick="return one_delete();">
                              <span class="glyphicon glyphicon-trash"></span>
                          </a>
                          

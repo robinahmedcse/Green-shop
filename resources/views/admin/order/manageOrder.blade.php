@@ -19,7 +19,8 @@
                 <th class="column-title">Name</th>
                 <th class="column-title">Order Total</th>
                 <th class="column-title">Order Status</th>
-               
+                 <th class="column-title">Payment Status</th>
+                <th class="column-title"> Status(pay) </th>
                 <th class="column-title">Action</th>
             
             </tr>
@@ -29,33 +30,79 @@
                      <td class="center ">{{$order ->customer_name}}</td>
                      <td class="center ">{{$order ->order_total}} BDT</td>
                      <td class="center ">{{$order ->order_status}}</td>
+                     <td class="center ">{{$order ->payment_status}}</td>
                      
                       <td>
-                         <a href="{{url('/wp-admin/master/single/view/order/'.$order ->order_id)}}" class="btn btn-success">
+                          
+                          <?php 
+                                 $payment_type = $order ->payment_type;
+                                 $payment_status=$order ->payment_status;
+                          
+                                   if(($payment_type == 'Bkash' || $payment_type == 'Rocket') && $payment_status == 'pending'){
+                          ?>
+                          
+                          
+                          <a href="{{url('/wp-admin/master/single/order/payment/status/change/'.$order ->payment_id)}}" class="btn btn-danger" onclick="return payment_status();">
+                             <span class="glyphicon ">Complete</span>
+                         </a> 
+                             <?php 
+                                 
+                          
+                                   }
+                                   elseif (($payment_type == 'CashOnDelivery') && $payment_status == 'pending'){
+                          ?>
+                          
+                             <a href="{{url('/wp-admin/master/single/order/payment/status/change/'.$order ->payment_id)}}" class="btn btn-danger" onclick="return payment_status();">
+                             <span class="glyphicon ">COD</span>
+                         </a> 
+                           
+                       <?php 
+                                   }else{
+                       ?>
+                          
+                           
+<!--                             <span class="glyphicon ">Paid</span>-->
+                         
+                          
+                           <?php 
+                                   }
+                       ?>
+                         
+                     </td> 
+                     
+                     
+                     
+                     
+                     
+                      <td>
+                          <a href="{{url('/wp-admin/master/single/view/order/'.$order ->order_id)}}" target="_blank" class="btn btn-success">
                              <span class="glyphicon glyphicon-zoom-in"></span>
                          </a> 
   
-                         <a class="btn btn-info" href="edit-order.php?&&id=" >
-                                            <i class="halflings-icon white arrow-down"></i>  
-                                       Edit 
-                         </a> 
+                   
                           
-                         <a class="btn btn-success" href="{{url('/wp-admin/master/single/order/invoice/pdf/'.$order ->order_id)}}" >
-                                            <i class="halflings-icon white arrow-down"></i>  
-                                     View invoice 
+                         <a class="btn btn-info" href="{{url('/wp-admin/master/single/order/invoice/pdf/'.$order ->order_id)}}" >
+                                            <i class="glyphicon glyphicon-book"></i>  
+                                    
                          </a>
                         
                           <a class="btn btn-warning" href="{{url('/wp-admin/master/single/view/order/invoice/generate/pdf/'.$order ->order_id)}}" >
-                                            <i class="halflings-icon white arrow-down"></i>  
-                                      Download invoice
+                                            <i class="glyphicon glyphicon-download"></i>  
+                                      
                           </a> 
                           
+                              <a href="{{url('/wp-admin/master/all/order/status/change/'.$order ->order_id)}}" target="_blank" class="btn btn-success">
+                             <span class="glyphicon glyphicon-copy"></span>
+                         </a> 
                           
-                           
+                         
+                      
+                          
+<!--                           
                           <a class="btn btn-danger" href="?Status=delete&&id=" onclick="return one_delete();" >
-                                            <i class="halflings-icon white arrow-down"></i>  
-                                       Delete 
-                          </a>
+                                            <i class="glyphicon glyphicon-trash"></i>  
+                                         
+                          </a>-->
                          
                          
                      </td> 

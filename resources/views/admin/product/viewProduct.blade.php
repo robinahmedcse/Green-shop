@@ -22,9 +22,7 @@ $productImageById=DB::table('tbl_products')
     <div class="">
         <h2 class="tex text-center text-success">View Product</h2>
     </div> 
-    <div class="">
-        <h4 class="tex text-center text-danger">{{Session::get('message')}}</h4>
-    </div> 
+  
     
   
 

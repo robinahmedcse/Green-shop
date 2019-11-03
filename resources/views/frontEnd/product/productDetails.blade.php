@@ -229,7 +229,7 @@ $get_product_id=$published_product_by_id->product_id;
 
                                             <li><a href="#" target="_blank"><i class="icon-social-instagram icons"></i></a></li>
 
-                                            <li><a href="https://www.facebook.com/Furny/?ref=bookmarks" target="_blank"><i class="icon-social-facebook icons"></i></a></li>
+                                            <li><a href="#" target="_blank"><i class="icon-social-facebook icons"></i></a></li>
 
                                             <li><a href="#" target="_blank"><i class="icon-social-google icons"></i></a></li>
 

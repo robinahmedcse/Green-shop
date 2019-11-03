@@ -5,29 +5,76 @@
 
 <?php
 $cartCollection = Cart::getContent();
+
+  $faka=$cartCollection->isEmpty();
+
+
 // echo"<pre>";
 // print_r($cartCollection);
 // exit();
+
+$banner_peoduct = DB::table('tbl_checkout_pro')
+        ->where('publication_status', 1)
+        ->first();
+
+
+if ($banner_peoduct == NULL) {
+    $ban_image = 'Nai';
+} else {
+    $ban_image = $banner_peoduct->checkout_pro_image_url;
+}
 ?>
+
+
+<?php if($faka != 1){?>
+
+
+
+
+
 <!-- Start Bradcaump area -->
-<div class="ht__bradcaump__area" style="background: rgba(0, 0, 0, 0) url({{asset('public/frontEnd/')}}/images/bg/4.jpg) no-repeat scroll center center / cover ;">
-    <div class="ht__bradcaump__wrap">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="bradcaump__inner">
-                        <nav class="bradcaump-inner">
-                            <a class="breadcrumb-item" href="index.html">Home</a>
-                            <span class="brd-separetor"><i class="zmdi zmdi-chevron-right"></i></span>
-                            <span class="breadcrumb-item active">shopping cart</span>
-                        </nav>
+
+<?php if ($ban_image == 'Nai') {  ?>
+  <div class="ht__bradcaump__area" style="background: rgba(0, 0, 0, 0)  no-repeat scroll center center / cover ;">
+        <div class="ht__bradcaump__wrap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="bradcaump__inner">
+                            <nav class="bradcaump-inner">
+                                <a class="breadcrumb-item" href="{{URL::to('/')}}">Home</a>
+                                <span class="brd-separetor"><i class="zmdi zmdi-chevron-right"></i></span>
+                                <span class="breadcrumb-item active">shopping cart</span>
+                            </nav>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- End Bradcaump area -->
+<?php } else { ?>
+    <div class="ht__bradcaump__area" style="background: rgba(0, 0, 0, 0) url({{asset($ban_image)}}) no-repeat scroll center center / cover ;">
+        <div class="ht__bradcaump__wrap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="bradcaump__inner">
+                            <nav class="bradcaump-inner">
+                                <a class="breadcrumb-item" href="{{URL::to('/')}}">Home</a>
+                                <span class="brd-separetor"><i class="zmdi zmdi-chevron-right"></i></span>
+                                <span class="breadcrumb-item active">shopping cart</span>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php } ?>
+
+
+
+
 <!-- cart-main-area start -->
 <div class="cart-main-area ptb--100 bg__white">
     <div class="container">
@@ -80,11 +127,11 @@ $cartCollection = Cart::getContent();
                         </table>
 
                     </div>
-                    
-                    
-                    
-                    
-                    
+
+
+
+
+
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="buttons-cart--inner">
@@ -94,41 +141,41 @@ $cartCollection = Cart::getContent();
 
                                 <div class="buttons-cart checkout--btn">
                                     <!--        <a href="#">update</a> -->
-                               
-                                       <?php 
-                           $customer_id = Session::get('user_customer_id');
-                           $shippingId = Session::get('user_shipping_id');
-                           
-                          // echo 'coustomet id '.$customer_id ;
-                         //   echo 'ship id '.$shippingId ;
-                         //  exit();
-                           
-                            
-                            if($customer_id == NULL && $shippingId == NULL){
-                           ?>
-                                    
-                            <a href="{{URL::to('/checkout/products')}}">Continue</a>
-                              
-                             <?php } 
-                             elseif ($customer_id != NULL && $shippingId == NULL) {
-                            ?>    
-                                 <a href="{{URL::to('/checkout/shipping')}}">Continue</a>
-                                 
-                             <?php                            
-                             }elseif ($customer_id != NULL && $shippingId != NULL) {
-                          ?>
-                                  <a href="{{URL::to('/checkout/payment')}}">Continue</a>
-                                           <?php   }   ?>
-                                
+
+<?php
+$customer_id = Session::get('user_customer_id');
+$shippingId = Session::get('user_shipping_id');
+
+// echo 'coustomet id '.$customer_id ;
+//   echo 'ship id '.$shippingId ;
+//  exit();
+
+
+if ($customer_id == NULL && $shippingId == NULL) {
+    ?>
+
+                                        <a href="{{URL::to('/checkout/products')}}">Continue</a>
+
+                                    <?php
+                                    } elseif ($customer_id != NULL && $shippingId == NULL) {
+                                        ?>    
+                                        <a href="{{URL::to('/checkout/shipping')}}">Continue</a>
+
+    <?php
+} elseif ($customer_id != NULL && $shippingId != NULL) {
+    ?>
+                                        <a href="{{URL::to('/checkout/payment')}}">Continue</a>
+                                    <?php } ?>
+
                                 </div>
 
                             </div>
                         </div>
                     </div>
-                    
-                    
-                    
-                    
+
+
+
+
                     <div class="row">
                         <div class="col-md-6 col-sm-12 col-xs-12">
                             <div class="ht__coupon__code">
@@ -151,74 +198,72 @@ $cartCollection = Cart::getContent();
                                         <li>shipping</li>
                                     </ul>
                                     <ul class="cart__price">
-                                        <?php
-                                        $subTotal = Cart::getSubTotal();
-                                        ?>
+<?php
+$subTotal = Cart::getSubTotal();
+?>
                                         <li>{{$subTotal}} BDT</li>
                                         <li>0.00 BDT</li>
                                         <li>
-                                            <?php
-                                            $shipping_charge = 100;
+                                        <?php
+                                        $shipping_charge = 100;
 
-                                            $cartTotalQuantity = Cart::getTotalQuantity();
+                                        $cartTotalQuantity = Cart::getTotalQuantity();
 
-                                            $shipping = $shipping_charge * $cartTotalQuantity;
+                                        $shipping = $shipping_charge * $cartTotalQuantity;
 
-                                            echo $shipping;
-                                            ?>
+                                        echo $shipping;
+                                        ?>
                                             BDT</li>
                                     </ul>
                                 </div>
                                 <div class="cart__total">
-                                    <?php
-                                    $total = Cart::getTotal();
-                                    $total_amount = $shipping + $total;
-                                    ?>
+                                            <?php
+                                            $total = Cart::getTotal();
+                                            $total_amount = $shipping + $total;
+                                            ?>
                                     <span>order total</span>
                                     <span><?php
-                                        echo $total_amount;
-                                        ?> BDT</span>
+                                            echo $total_amount;
+                                            ?> BDT</span>
                                 </div>
                                 <ul class="payment__btn">
-                                                  <?php 
-                         
-                            
-                            if($customer_id == NULL && $shippingId == NULL){
-                           ?>
-                                    
-                         
-                              <li class="active"><a href="{{URL::to('/checkout/products')}}">payment</a></li>
-                              
-                             <?php } 
-                             elseif ($customer_id != NULL && $shippingId == NULL) {
-                            ?>    
-                           
-                                   <li class="active"><a href="{{URL::to('/checkout/shipping')}}">payment</a></li>
-                                 
-                             <?php                            
-                             }elseif ($customer_id != NULL && $shippingId != NULL) {
-                          ?>
-                                
-                                    <li class="active"><a href="{{URL::to('/checkout/payment')}}">payment</a></li>
-                                           <?php   }   ?>
-                                    
-                                    
-                                    
-                                    
-                                  
-                                    
+                                    <?php
+                                    if ($customer_id == NULL && $shippingId == NULL) {
+                                        ?>
+
+
+                                        <li class="active"><a href="{{URL::to('/checkout/products')}}">payment</a></li>
+
+                                    <?php
+                                    } elseif ($customer_id != NULL && $shippingId == NULL) {
+                                        ?>    
+
+                                        <li class="active"><a href="{{URL::to('/checkout/shipping')}}">payment</a></li>
+
+    <?php
+} elseif ($customer_id != NULL && $shippingId != NULL) {
+    ?>
+
+                                        <li class="active"><a href="{{URL::to('/checkout/payment')}}">payment</a></li>
+                                    <?php } ?>
+
+
+
+
+
+
                                 </ul>
-                                
-                              
-                                
-                                
+
+
+
+
                             </div>
                         </div>
                     </div>
-                    
-                    
-                    
-                    
+
+
+
+
                 </form> 
             </div>
         </div>
@@ -226,26 +271,116 @@ $cartCollection = Cart::getContent();
 </div>
 <!-- cart-main-area end -->
 <!-- Start Brand Area -->
-<div class="htc__brand__area bg__cat--4">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="ht__brand__inner">
-                    <ul class="brand__list owl-carousel clearfix">
-                        <li><a href="#"><img src="images/brand/1.png" alt="brand images"></a></li>
-                        <li><a href="#"><img src="images/brand/2.png" alt="brand images"></a></li>
-                        <li><a href="#"><img src="images/brand/3.png" alt="brand images"></a></li>
-                        <li><a href="#"><img src="images/brand/4.png" alt="brand images"></a></li>
-                        <li><a href="#"><img src="images/brand/5.png" alt="brand images"></a></li>
-                        <li><a href="#"><img src="images/brand/5.png" alt="brand images"></a></li>
-                        <li><a href="#"><img src="images/brand/1.png" alt="brand images"></a></li>
-                        <li><a href="#"><img src="images/brand/2.png" alt="brand images"></a></li>
-                    </ul>
+ 
+<!-- End Brand Area -->
+<!-- Start Banner Area -->
+<div class="htc__banner__area">
+    <ul class="banner__list owl-carousel owl-theme clearfix">
+        <li><a href="product-details.html"><img src="images/banner/bn-3/1.jpg" alt="banner images"></a></li>
+        <li><a href="product-details.html"><img src="images/banner/bn-3/2.jpg" alt="banner images"></a></li>
+        <li><a href="product-details.html"><img src="images/banner/bn-3/3.jpg" alt="banner images"></a></li>
+        <li><a href="product-details.html"><img src="images/banner/bn-3/4.jpg" alt="banner images"></a></li>
+        <li><a href="product-details.html"><img src="images/banner/bn-3/5.jpg" alt="banner images"></a></li>
+        <li><a href="product-details.html"><img src="images/banner/bn-3/6.jpg" alt="banner images"></a></li>
+        <li><a href="product-details.html"><img src="images/banner/bn-3/1.jpg" alt="banner images"></a></li>
+        <li><a href="product-details.html"><img src="images/banner/bn-3/2.jpg" alt="banner images"></a></li>
+    </ul>
+</div>
+<!-- End Banner Area -->
+<!-- End Banner Area -->
+<?php }
+
+
+
+
+
+else{?>
+
+<?php if ($ban_image == 'Nai') {  ?>
+  <div class="ht__bradcaump__area" style="background: rgba(0, 0, 0, 0)  no-repeat scroll center center / cover ;">
+        <div class="ht__bradcaump__wrap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="bradcaump__inner">
+                            <nav class="bradcaump-inner">
+                                <a class="breadcrumb-item" href="{{URL::to('/')}}">Home</a>
+                                <span class="brd-separetor"><i class="zmdi zmdi-chevron-right"></i></span>
+                                <span class="breadcrumb-item active">shopping cart</span>
+                            </nav>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+<?php } else { ?>
+    <div class="ht__bradcaump__area" style="background: rgba(0, 0, 0, 0) url({{asset($ban_image)}}) no-repeat scroll center center / cover ;">
+        <div class="ht__bradcaump__wrap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="bradcaump__inner">
+                            <nav class="bradcaump-inner">
+                                <a class="breadcrumb-item" href="{{URL::to('/')}}">Home</a>
+                                <span class="brd-separetor"><i class="zmdi zmdi-chevron-right"></i></span>
+                                <span class="breadcrumb-item active">shopping cart</span>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php } ?>
+
+
+
+
+
+<!-- cart-main-area start -->
+<div class="cart-main-area ptb--100 bg__white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <form action="#" >               
+                    <div class="table-content table-responsive">
+                        <table >
+                            <thead  >
+                                <tr>
+                                    <th class="product-thumbnail ">There are no items in this cart</th>
+                                  
+                                </tr>
+                                <tr>
+                                    <th>
+                                      <div class="buttons-cart">
+                                    <a href="{{URL::to('/')}}">Continue Shopping</a>
+                                </div>
+                                        </th>
+                                  
+                                </tr>
+                                
+                                
+                                  
+                            </thead>
+                
+                        </table>
+
+                    </div>
+
+
+ 
+ 
+
+
+                </form> 
+            </div>
+        </div>
+    </div>
 </div>
+<!-- cart-main-area end -->
+<!-- Start Brand Area -->
+ 
 <!-- End Brand Area -->
 <!-- Start Banner Area -->
 <div class="htc__banner__area">
@@ -263,4 +398,6 @@ $cartCollection = Cart::getContent();
 <!-- End Banner Area -->
 <!-- End Banner Area -->
 
+
+<?php }?>
 @endsection

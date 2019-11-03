@@ -15,7 +15,15 @@
                         <li>
                              
                             <a href="{{url('/wp-admin/master/dashboard')}}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        
+                        
                         </li>
+						
+						
+                  
+                         
+                        
+                        
                         <li>
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Main Category Info<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -82,10 +90,65 @@
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="{{url('/wp-admin/master/all/order/view')}}">View All Order</a>
-                                </li>                            
+                                </li> 
+                                
+                                 <li>
+                                    <a href="{{url('/wp-admin/master/all/past/order/view')}}">Past All Order</a>
+                                </li>  
                             </ul>
                           
-                        </li>
+                           </li>
+						      <hr/>
+						  <i class="fa fa-list fa-fw"></i>All Banner Manage 
+						   <hr/>
+						   
+						           <li>
+									<a href="#"><i class="fa fa-adn fa-fw"></i> Home Slider Mange<span class="fa arrow"></span></a>
+										<ul class="nav nav-second-level">
+										<li>
+											<a href="{{url('/wp-admin/master/banner/add')}}">Add Slider</a>
+										</li>
+										<li>
+											<a href="{{url('/wp-admin/master/banner/manage')}}">Manage Banner</a>
+							            </li>
+										</ul>
+								   </li>
+								   
+								        <li>
+									<a href="#"><i class="fa fa-adn fa-fw"></i> Man Image Mange<span class="fa arrow"></span></a>
+										<ul class="nav nav-second-level">
+										<li>
+											<a href="{{url('/wp-admin/master/banner/man/add')}}">Add Image</a>
+										</li>
+										<li>
+											<a href="{{url('/wp-admin/master/banner/man/manage')}}">Manage Image</a>
+							            </li>
+										</ul>
+								   </li>
+								   
+								          <li>
+									<a href="#"><i class="fa fa-adn fa-fw"></i>Women Image Mange<span class="fa arrow"></span></a>
+										<ul class="nav nav-second-level">
+										<li>
+											<a href="{{url('/wp-admin/master/banner/woman/add')}}">Add Photo</a>
+										</li>
+										<li>
+											<a href="{{url('/wp-admin/master/banner/woman/manage')}}">Manage photo</a>
+							            </li>
+										</ul>
+								   </li>
+								   
+								            <li>
+									<a href="#"><i class="fa fa-adn fa-fw"></i>Checkout Image Mange<span class="fa arrow"></span></a>
+										<ul class="nav nav-second-level">
+										<li>
+											<a href="{{url('/wp-admin/master/banner/checkout/add')}}">Add Picture</a>
+										</li>
+										<li>
+											<a href="{{url('/wp-admin/master/banner/checkout/manage')}}">Manage Picture</a>
+							            </li>
+										</ul>
+								   </li>
                         
                  
                     </ul>

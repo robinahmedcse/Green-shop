@@ -15,7 +15,7 @@
                 <div class="menumenu__container clearfix">
                     <div class="col-lg-2 col-md-2 col-sm-3 col-xs-5"> 
                         <div class="logo">
-                            <a href="{{URL::to('/')}}"><img src="{{asset('public/frontEnd/')}}/{{asset('public/frontEnd/')}}/{{asset('public/frontEnd/')}}/images/logo/4.png" alt="logo images"></a>
+                            <a href="{{URL::to('/')}}"><img src="{{asset('public/frontEnd/')}}/images/logo/logo.png" alt="logo images" width="55%" align="center"></a>
                         </div>
                     </div>
                     <div class="col-md-7 col-lg-8 col-sm-5 col-xs-3">
@@ -29,8 +29,10 @@
                                         ->get();
                                 ?>
                                 @foreach($allPublishedMainCategory as $mainCategory)
+                               
+                                
                                 <li class="drop">
-                                    <a href="{{URL::to('/product/'.$mainCategory ->category_name.'/'.$mainCategory ->category_id)}}" target="_blank">{{$mainCategory ->category_name}}</a>
+                                    <a href="{{URL::to('/product/'.$mainCategory ->category_name.'/'.$mainCategory ->category_url)}}" target="_blank">{{$mainCategory ->category_name}}</a>
 
 
 
@@ -49,7 +51,7 @@
                                         ?>
 
                                         @foreach($allPublishedSubCategory as $subCategory)
-                                        <li><a class="mega__title" href="{{$subCategory ->sub_category_id}}">{{$subCategory ->sub_category_name}}</a>
+                                        <li><a class="mega__title" href="#">{{$subCategory ->sub_category_name}}</a>
                                             <?php
                                             $sub_category_id = $subCategory->sub_category_id;
 
@@ -62,7 +64,7 @@
 
                                             @foreach($allPublishedMiniCategory as $miniCategory)
                                             <ul class="mega__item">
-                                                <li><a href="{{URL::to('/products/'.$miniCategory ->mini_category_name.'/'.$miniCategory ->mini_category_id)}}" target="_blank">{{$miniCategory ->mini_category_name}}</a></li>
+                                                <li><a href="{{URL::to('/products/'.$miniCategory ->mini_category_name.'/'.$miniCategory ->mini_category_url)}}" target="_blank">{{$miniCategory ->mini_category_name}}</a></li>
 
                                             </ul>
                                             @endforeach
@@ -84,7 +86,7 @@
 
 
 
-                                <li><a href="contact.html">contact</a></li>
+                                <li><a href="{{URL::to('/contact')}}">contact</a></li>
 
 
 
